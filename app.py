@@ -17,5 +17,10 @@ def delete_sheet(name):
     response, status_code = sheets_service.delete_sheet(name)
     return jsonify(response), status_code
 
+@app.route('/sheets/<username>', methods=['GET'])
+def get_sheet_by_username(username):
+    response, status_code = sheets_service.get_sheet_by_username(username)
+    return jsonify(response), status_code
+
 if __name__ == "__main__":
     app.run(debug=True)

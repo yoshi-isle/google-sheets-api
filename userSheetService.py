@@ -45,6 +45,19 @@ class UserSheetsService:
         except Exception as e:
             return {"error": f"Error adding sheet: {e}"}, 500
 
+    def get_sheet_by_username(self, username):
+            if self.client is None:
+                return {"error": "Error connecting to Google Sheets"}, 500
+
+            try:
+                sheet = self.client.open(f"{username}'s sheet")
+                return {
+                    "sheet": sheet.title,
+                    "url": sheet.url
+                }, 200
+            except Exception as e:
+                return {"error": f"Failed to get sheet for user {username}: {e}"}, 500
+            
     def delete_sheet(self, name):
         if self.client is None:
             return {"error": "Error connecting to Google Sheets"}, 500
